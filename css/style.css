@@ -262,3 +262,76 @@ h2 {
     50% { left: 0%; }
     100% { left: 100%; }
 }
+
+/* Responsive rules */
+@media (max-width: 992px) {
+  .dashboard {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 4px solid var(--border);
+  }
+  .main-content {
+    padding: 24px;
+    align-items: stretch;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 60px 16px;
+    padding: 24px;
+  }
+  .auth-wrapper {
+    height: auto;
+  }
+  .auth-panel {
+    padding: 20px;
+  }
+  .profile-icon {
+    width: 64px;
+    height: 64px;
+    font-size: 32px;
+  }
+  .main-content h1 {
+    font-size: 18px;
+    margin-bottom: 24px;
+  }
+  .explore-content {
+    padding: 12px 16px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .container {
+    margin: 48px 12px;
+    padding: 16px;
+  }
+  .form-control {
+    padding: 10px;
+    font-size: 11px;
+  }
+  .btn-primary {
+    padding: 12px 16px;
+    font-size: 11px;
+  }
+  .username-display {
+    font-size: 11px;
+  }
+  .dashboard-item {
+    padding: 16px;
+    box-shadow: 8px 8px 0px 0px var(--border);
+  }
+}
