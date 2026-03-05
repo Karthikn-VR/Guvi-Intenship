@@ -1,6 +1,6 @@
 # GUVI Project
 
-A minimal black‑and‑white, pixel‑styled landing experience with a fixed navbar, glass‑style hero card, strong pixel buttons, and responsive feature cards. Includes an About page with a distinct retro document layout and an authentication dashboard page.
+A minimal black-and-white pixel-styled GUVI landing platform built using HTML, CSS, JavaScript, jQuery, PHP, MySQL. The project includes a responsive landing page, login/register system, and user dashboard. Authentication and profile updates are handled using jQuery AJAX with prepared statements in MySQL. 
 
 ## Demo Video
 
