@@ -1,0 +1,244 @@
+body.retro-body {
+  font-family: "Press Start 2P", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #30344f 0, #050109 50%, #000 100%);
+  color: #f5f5f5;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.retro-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    );
+  background-size: 100% 2px;
+  mix-blend-mode: soft-light;
+  opacity: 0.6;
+  z-index: 0;
+}
+
+.retro-title {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  color: #ffde59;
+  text-shadow: 3px 3px #000;
+}
+
+.retro-title-sm {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  color: #ffde59;
+  text-shadow: 2px 2px #000;
+}
+
+.retro-subtitle,
+.retro-subtitle-sm {
+  font-size: 0.65rem;
+  color: #9fd3ff;
+  text-shadow: 1px 1px #000;
+}
+
+.retro-card {
+  background: linear-gradient(145deg, #111324, #1f233a);
+  border-radius: 0;
+  border: 3px solid #00f5d4;
+  box-shadow: 0 0 0 3px #000, 0 12px 0 #000;
+  position: relative;
+  z-index: 1;
+}
+
+.retro-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px dashed rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.retro-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  color: #9fd3ff;
+}
+
+.retro-input {
+  background-color: #050818;
+  border-radius: 0;
+  border: 2px solid #3a3f66;
+  color: #f5f5f5;
+  font-size: 0.7rem;
+}
+
+.retro-input:focus {
+  box-shadow: 0 0 0 0.1rem #00f5d4;
+  border-color: #00f5d4;
+  background-color: #050818;
+  color: #fff;
+}
+
+.btn-retro-primary,
+.btn-retro-secondary,
+.btn-retro-ghost {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  border-radius: 0;
+  border-width: 3px;
+  box-shadow: 0 6px 0 #000;
+}
+
+.btn-retro-primary {
+  background: #00f5d4;
+  border-color: #00f5d4;
+  color: #000;
+}
+
+.btn-retro-primary:hover {
+  background: #00c9ab;
+  border-color: #00c9ab;
+  color: #000;
+}
+
+.btn-retro-secondary {
+  background: #ff595e;
+  border-color: #ff595e;
+  color: #fff;
+}
+
+.btn-retro-secondary:hover {
+  background: #ff3b42;
+  border-color: #ff3b42;
+}
+
+.btn-retro-ghost {
+  background: transparent;
+  border-color: #9fd3ff;
+  color: #9fd3ff;
+}
+
+.btn-retro-ghost:hover {
+  background: #9fd3ff;
+  color: #001220;
+}
+
+.retro-text {
+  font-size: 0.7rem;
+}
+
+.retro-section-title {
+  font-size: 0.75rem;
+  color: #ffde59;
+}
+
+.retro-message {
+  min-height: 1.1rem;
+  font-size: 0.65rem;
+}
+
+.retro-message.error {
+  color: #ff595e;
+}
+
+.retro-message.success {
+  color: #00f5d4;
+}
+
+.runner-wrap,
+.runner-track {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+  background: linear-gradient(to top, #111, #1b1f36);
+  border: 2px solid #3a3f66;
+}
+
+.runner-track.tall {
+  height: 120px;
+}
+
+.runner-track::after,
+.runner-wrap::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  height: 3px;
+  background: repeating-linear-gradient(
+    to right,
+    #00f5d4 0,
+    #00f5d4 8px,
+    transparent 8px,
+    transparent 16px
+  );
+  opacity: 0.9;
+}
+
+.runner-sprite {
+  position: absolute;
+  bottom: 14px;
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle at 30% 30%, #fff 0, #ffde59 35%, #ff595e 65%);
+  box-shadow: 0 0 0 3px #000;
+  image-rendering: pixelated;
+  transform-origin: center bottom;
+  animation: runner-run 0.9s steps(4) infinite,
+    runner-move 4s linear infinite;
+}
+
+.runner-login {
+  animation-duration: 3s;
+}
+
+.runner-register {
+  animation-duration: 5s;
+}
+
+.runner-profile {
+  animation-duration: 6s;
+}
+
+@keyframes runner-run {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+  25% {
+    transform: scale(1.05) translateY(-2px);
+  }
+  50% {
+    transform: scale(0.97) translateY(0);
+  }
+  75% {
+    transform: scale(1.03) translateY(-1px);
+  }
+}
+
+@keyframes runner-move {
+  0% {
+    left: -10%;
+  }
+  100% {
+    left: 110%;
+  }
+}
+
+@media (max-width: 576px) {
+  .retro-title {
+    font-size: 1.1rem;
+  }
+
+  .retro-title-sm {
+    font-size: 1rem;
+  }
+
+  .retro-card {
+    box-shadow: 0 8px 0 #000;
+  }
+}
+

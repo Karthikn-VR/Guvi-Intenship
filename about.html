@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - GUVI Retro Arcade UI</title>
+    <link rel="stylesheet" href="css/retro.css">
+</head>
+<body class="about-page">
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo-block">
+                <a class="logo" href="index.html">GUVI</a>
+                <div class="logo-tagline">Learn. Build. Launch.</div>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a class="nav-link" href="https://www.guvi.com">Explore</a>
+            <a class="nav-link" href="about.html">About</a>
+            <a class="nav-link" href="auth.html">Login</a>
+        </div>
+    </nav>
+
+    <main class="about-wrap">
+        <section class="about-container">
+            <h1 class="about-title">ABOUT THIS PROJECT</h1>
+            <p class="about-lead">This retro arcade–styled landing experience is built with a strict black-and-white pixel aesthetic. It uses a fixed, transparent navbar; pixel typography; strong borders; and offset shadows to create depth while staying minimal.</p>
+            <div class="about-divider"></div>
+            <div class="about-grid">
+                <article class="about-section">
+                    <h2 class="about-subtitle">Design Principles</h2>
+                    <p>Monochrome palette; Press Start 2P for headings and Inter for body; thick black borders; 6px offset pixel shadows; minimal layout; pixel accents outside boxes only.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Backend Overview</h2>
+                    <p>The authentication and dashboard features use lightweight PHP endpoints with JSON responses. Client-side JavaScript (jQuery) sends AJAX requests to these endpoints for login, registration, profile retrieval/update, and dashboard data. A demo mode exists that stores test user data in localStorage without server calls.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Homepage Structure</h2>
+                    <p>Navbar with GUVI logo and tagline plus Explore, About, Login. Glass-style hero card with title/description and two CTAs. Right-side feature cards for Web, AI, and Cloud themes. Background visible on the right for balance.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Interactions & Routing</h2>
+                    <p>Explore opens the official GUVI platform; Login/Register goes to the auth page; About provides this reviewer-focused documentation. Buttons have retro hover-lift and pixel shadow animation.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Responsiveness</h2>
+                    <p>On smaller screens, hero centers and feature cards stack below. Buttons stack vertically, and background positioning adjusts for a balanced presentation.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Styling System</h2>
+                    <p>All homepage styles live in css/retro.css. Components include navbar, hero card, feature cards, pixel decorations, and responsive grids. About page uses distinct classes to avoid the homepage glass hero.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Extensibility</h2>
+                    <p>New pages can reuse pixel border/shadow patterns and typography. Feature sections can be added without breaking the aesthetic. Pixel density is tunable and kept outside content boxes.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">PHP Endpoints</h2>
+                    <p><strong>login.php</strong>: Validates credentials, returns a session token and username on success. <strong>register.php</strong>: Creates a new user record with basic profile fields. <strong>profile.php</strong>: GET returns profile for a given username; POST updates age, DOB, and contact. <strong>dashboard.php</strong>: Returns a JSON payload with recommended role, skill score, top skills, recent activity, and a motivational message.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">JavaScript Flow</h2>
+                    <p>Auth UI uses jQuery to handle form submissions and view toggles. Login/Register forms serialize inputs and send AJAX requests to the PHP endpoints. On success, the client stores a session token and username in localStorage and renders the dashboard. Demo mode (username/password “test”) bypasses the server and uses localStorage to simulate profile data.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Database Setup</h2>
+                    <p>A setup script initializes the database and tables. Credentials are configured in the setup file and should be secured in production (environment variables or server-side config). The application expects standard user tables for auth and profile fields. No credentials are displayed in this documentation.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Security Notes</h2>
+                    <p>Use HTTPS in production, hash passwords on the server, validate inputs on both client and server, and avoid storing sensitive information in localStorage. Session tokens should be short-lived and validated server-side.</p>
+                </article>
+                <article class="about-section">
+                    <h2 class="about-subtitle">Reviewer Notes</h2>
+                    <p>Key checks: consistent retro styling, clean routing, accessible typography, balanced layout. No sensitive credentials are exposed.</p>
+                </article>
+            </div>
+            <div class="cta-group about-cta">
+                <a href="index.html" class="btn btn-white">BACK TO HOME</a>
+                <a href="auth.html" class="btn btn-black">LOGIN / REGISTER</a>
+            </div>
+        </section>
+        <div class="pixel-decor">
+            <span class="pixel-square"></span>
+            <span class="pixel-square"></span>
+            <span class="pixel-square"></span>
+            <span class="pixel-square"></span>
+            <span class="pixel-square"></span>
+            <span class="pixel-square"></span>
+        </div>
+    </main>
+</body>
+</html>

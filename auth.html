@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUVI - Retro Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="auth-message" style="position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 1000; width: 80%;"></div>
+
+    <div id="userSection" class="dashboard" style="display: none;">
+        <div class="sidebar">
+            <div id="profileIcon" class="profile-icon">?</div>
+            <div id="displayUsername" class="username-display">USER</div>
+            
+            <div id="profileSection" style="margin-bottom: 20px; padding: 10px; font-size: 12px; width: 100%;">
+                <div id="profileDisplay">
+                    <p>Age: <span id="view-age"></span></p>
+                    <p>DOB: <span id="view-dob"></span></p>
+                    <p>Contact: <span id="view-contact"></span></p>
+                    <button id="editProfileBtn" class="btn-primary" style="font-size: 10px; padding: 5px; margin-top: 10px;">Update</button>
+                </div>
+                <div id="profileEdit" style="display: none;">
+                    <div class="form-group">
+                        <input type="text" id="prof-age" placeholder="Age" class="form-control" style="font-size: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <input type="date" id="prof-dob" class="form-control" style="font-size: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="prof-contact" placeholder="Contact" class="form-control" style="font-size: 10px;">
+                    </div>
+                    <button id="saveProfileBtn" class="btn-primary" style="font-size: 10px; padding: 5px;">Save</button>
+                    <button id="cancelEditBtn" class="btn-primary" style="font-size: 10px; padding: 5px; background: #fff; color: #000;">Cancel</button>
+                </div>
+            </div>
+
+            <div class="nav-btn">
+                <button id="logoutBtn" class="btn-primary">Logout</button>
+            </div>
+        </div>
+        <div class="main-content">
+            <h1 id="welcomeHeader">Welcome to GUVI</h1>
+            <div id="dashboard-content">Loading...</div>
+        </div>
+        <a href="https://www.guvi.in/" target="_blank" class="explore-btn-fixed">
+            <div class="explore-content">Explore More !</div>
+        </a>
+    </div>
+
+    <div id="authSection" class="container">
+        <div class="demo-window">
+            DEMO ACCOUNT:<br>
+            User/Email: test<br>
+            Pass: test
+        </div>
+
+        <h2 id="authTitle">Login</h2>
+        <div class="auth-wrapper" id="authWrapper">
+            <div class="auth-panels">
+                <div class="auth-panel">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label>Username or Email</label>
+                            <input type="text" class="form-control" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                        <span class="switch-link" id="showRegister">Don't have an account? Register</span>
+                    </form>
+                </div>
+                <div class="auth-panel">
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" name="email" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="text" class="form-control" name="age">
+                            </div>
+                            <div class="form-group">
+                                <label>DOB</label>
+                                <input type="date" class="form-control" name="dob">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Contact</label>
+                            <input type="text" class="form-control" name="contact">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" name="password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Register</button>
+                        <span class="switch-link" id="showLogin">Already have an account? Login</span>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var username = localStorage.getItem('username');
+            var token = localStorage.getItem('session_token');
+
+            if (username && token) {
+                showDashboard(username);
+            } else {
+                $('#userSection').hide();
+                $('#authSection').show();
+                $('#authWrapper').removeClass('register-active');
+                $('#authTitle').text('Login');
+                $('#authWrapper').css('height', '350px');
+            }
+
+            $('#showRegister').click(function() {
+                $('#authWrapper').addClass('register-active');
+                $('#authTitle').text('Register');
+                $('#authWrapper').css('height', '650px');
+            });
+
+            $('#showLogin').click(function() {
+                $('#authWrapper').removeClass('register-active');
+                $('#authTitle').text('Login');
+                $('#authWrapper').css('height', '350px');
+            });
+
+            $('#loginForm').submit(function(e) {
+                e.preventDefault();
+                var usernameInput = $(this).find('input[name="username"]').val();
+                var passwordInput = $(this).find('input[name="password"]').val();
+
+                if (usernameInput === 'test' && passwordInput === 'test') {
+                    localStorage.setItem('session_token', 'demo-token');
+                    localStorage.setItem('username', 'test');
+                    showDashboard('test');
+                    return;
+                }
+
+                var data = $(this).serialize();
+                $.ajax({
+                    url: 'php/login.php',
+                    type: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            localStorage.setItem('session_token', response.session_token);
+                            localStorage.setItem('username', response.username);
+                            showDashboard(response.username);
+                        } else {
+                            showMessage('error', response.message);
+                        }
+                    }
+                });
+            });
+
+            $('#registerForm').submit(function(e) {
+                e.preventDefault();
+                var usernameInput = $(this).find('input[name="username"]').val();
+                var passwordInput = $(this).find('input[name="password"]').val();
+
+                if (usernameInput === 'test' && passwordInput === 'test') {
+                    localStorage.setItem('session_token', 'demo-token');
+                    localStorage.setItem('username', 'test');
+                    showDashboard('test');
+                    return;
+                }
+
+                var data = $(this).serialize();
+                $.ajax({
+                    url: 'php/register.php',
+                    type: 'POST',
+                    data: data,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            showMessage('success', 'Registered! Please login.');
+                            $('#showLogin').click();
+                        } else {
+                            showMessage('error', response.message);
+                        }
+                    },
+                    error: function() {
+                        showMessage('error', 'Registration failed. Check your connection.');
+                    }
+                });
+            });
+
+            function showDashboard(user) {
+                $('#displayUsername').text(user);
+                $('#welcomeHeader').text('Welcome to GUVI, ' + user);
+                $('#profileIcon').text(user.charAt(0).toUpperCase());
+                $('#userSection').show();
+                $('#authSection').hide();
+
+                if (user === 'test') {
+                    var testData = JSON.parse(localStorage.getItem('test_profile') || '{"age":"20","dob":"2006-01-01","contact":"1234567890"}');
+                    $('#view-age').text(testData.age);
+                    $('#view-dob').text(testData.dob);
+                    $('#view-contact').text(testData.contact);
+                    $('#prof-age').val(testData.age);
+                    $('#prof-dob').val(testData.dob);
+                    $('#prof-contact').val(testData.contact);
+                } else {
+                    $.ajax({
+                        url: 'php/profile.php',
+                        type: 'GET',
+                        data: { username: user },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                $('#view-age').text(response.data.age || 'N/A');
+                                $('#view-dob').text(response.data.dob || 'N/A');
+                                $('#view-contact').text(response.data.contact || 'N/A');
+                                
+                                $('#prof-age').val(response.data.age);
+                                $('#prof-dob').val(response.data.dob);
+                                $('#prof-contact').val(response.data.contact);
+                            }
+                        }
+                    });
+                }
+
+                $.ajax({
+                    url: 'php/dashboard.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        var html = '<div class="dashboard-grid">' +
+                            '<div class="dashboard-item"><h3>Recommended Role</h3><p>' + data.recommendedRole + '</p></div>' +
+                            '<div class="dashboard-item"><h3>Skill Score</h3><p>' + data.skillScore + '%</p></div>' +
+                            '<div class="dashboard-item"><h3>Top Skills</h3><ul>' + data.skills.map(s => '<li>' + s + '</li>').join('') + '</ul></div>' +
+                            '<div class="dashboard-item"><h3>Recent Activity</h3><ul>' + data.recentActivity.map(a => '<li>✔ ' + a + '</li>').join('') + '</ul></div>' +
+                            '<div class="dashboard-item full-width"><h3>Tip of the Day</h3><p>"' + data.message + '"</p></div>' +
+                            '</div>';
+                        $('#dashboard-content').html(html);
+                    }
+                });
+            }
+
+            $('#editProfileBtn').click(function() {
+                $('#profileDisplay').hide();
+                $('#profileEdit').show();
+            });
+
+            $('#cancelEditBtn').click(function() {
+                $('#profileEdit').hide();
+                $('#profileDisplay').show();
+            });
+
+            $('#saveProfileBtn').click(function() {
+                var age = $('#prof-age').val();
+                var dob = $('#prof-dob').val();
+                var contact = $('#prof-contact').val();
+                var user = localStorage.getItem('username');
+
+                if (user === 'test') {
+                    var testData = { age: age, dob: dob, contact: contact };
+                    localStorage.setItem('test_profile', JSON.stringify(testData));
+                    $('#view-age').text(age);
+                    $('#view-dob').text(dob);
+                    $('#view-contact').text(contact);
+                    $('#profileEdit').hide();
+                    $('#profileDisplay').show();
+                    showMessage('success', 'Demo Profile Updated!');
+                } else {
+                    $.ajax({
+                        url: 'php/profile.php',
+                        type: 'POST',
+                        data: { username: user, age: age, dob: dob, contact: contact },
+                        success: function(response) {
+                            if (response.status === 'success') {
+                                showMessage('success', response.message);
+                                $('#view-age').text(age || 'N/A');
+                                $('#view-dob').text(dob || 'N/A');
+                                $('#view-contact').text(contact || 'N/A');
+                                $('#profileEdit').hide();
+                                $('#profileDisplay').show();
+                            } else {
+                                showMessage('error', response.message);
+                            }
+                        }
+                    });
+                }
+            });
+
+            $('#logoutBtn').click(function() {
+                localStorage.removeItem('session_token');
+                localStorage.removeItem('username');
+                window.location.href = 'index.html';
+            });
+
+            function showMessage(type, msg) {
+                var border = type === 'success' ? '4px solid #000' : '4px dashed #000';
+                var html = '<div class="alert" style="background:#fff; border:' + border + ';">' + msg + '</div>';
+                $('#auth-message').html(html);
+                setTimeout(() => $('#auth-message').empty(), 3000);
+            }
+        });
+    </script>
+</body>
+</html>
