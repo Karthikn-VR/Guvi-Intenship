@@ -4,10 +4,6 @@ A minimal black‑and‑white, pixel‑styled landing experience with a fixed na
 
 ## Demo Video
 
-<video src="output.mp4" controls width="960"></video>
-
-If the video does not render, download or open it directly:
-
 - [output.mp4](./output.mp4)
 
 ## Quick Start
