@@ -1,4 +1,4 @@
-# GUVI Retro Arcade Landing Page
+# GUVI Project
 
 A minimal black‑and‑white, pixel‑styled landing experience with a fixed navbar, glass‑style hero card, strong pixel buttons, and responsive feature cards. Includes an About page with a distinct retro document layout and an authentication dashboard page.
 
@@ -29,8 +29,3 @@ A minimal black‑and‑white, pixel‑styled landing experience with a fixed na
 
 - `php/` — Lightweight PHP endpoints for login, registration, profile, and dashboard JSON
 - `db_setup.php` — Database initializer (configure securely for production)
-
-## Notes
-
-- No sensitive credentials are included in this README
-- Pixel decorations remain outside boxes to keep the layout clean
